@@ -8,9 +8,14 @@ cursor = db.cursor()
 
 # cursor.execute('CREATE TABLE users (name VARCHAR(255), age INTEGER(10))')
 
-sql_insert_command = 'INSERT INTO users (name, age) VALUES (%s, %s)'
-user = ('Thiago', 17)
+# sql_insert_command = 'INSERT INTO users (name, age) VALUES (%s, %s)'
+# user = ('Thiago', 17)
 
-cursor.execute(sql_insert_command, user)
+# cursor.execute(sql_insert_command, user)
+
+sql_insert_command = 'INSERT INTO users (name, age) VALUES (%s, %s)'
+users = [('Maria', 20), ('João', 24), ('Pedro', 62)]
+
+cursor.executemany(sql_insert_command, users)
 
 db.commit()
