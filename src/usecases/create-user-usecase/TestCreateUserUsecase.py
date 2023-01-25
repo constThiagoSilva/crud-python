@@ -1,8 +1,14 @@
 import unittest
 
 class Database():
-    def create(self):
+    __database = []
+
+    def create(self, data: dict):
         pass
+    @property
+    def database(self):
+        return self.__database
+        
 
 class CreateUserUsecase():
     def __init__(self, database: Database):
@@ -15,7 +21,7 @@ class CreateUserUsecase():
         if data['name'] == '' or data['email'] == '' or data['password'] == '':
             raise TypeError('Parameters are not provided correctyly! Fix it!')
 
-        return data
+        return self.database.create(data)
 
 class TestCreateUserUsecase(unittest.TestCase):
     def setUp(self):
