@@ -13,9 +13,16 @@ cursor = db.cursor()
 
 # cursor.execute(sql_insert_command, user)
 
-sql_insert_command = 'INSERT INTO users (name, age) VALUES (%s, %s)'
-users = [('Maria', 20), ('João', 24), ('Pedro', 62)]
+# sql_insert_command = 'INSERT INTO users (name, age) VALUES (%s, %s)'
+# users = [('Maria', 20), ('João', 24), ('Pedro', 62)]
 
-cursor.executemany(sql_insert_command, users)
+# cursor.executemany(sql_insert_command, users)
 
-db.commit()
+# db.commit()
+
+cursor.execute('SELECT * FROM users')
+
+users = cursor.fetchall()
+
+for user in users:
+    print(user)
