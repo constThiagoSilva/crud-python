@@ -15,6 +15,8 @@ class CreateUserUsecase():
         if data['name'] == '' or data['email'] == '' or data['password'] == '':
             raise TypeError('Parameters are not provided correctyly! Fix it!')
 
+        return data
+
 class TestCreateUserUsecase(unittest.TestCase):
     def setUp(self):
         self.sut = CreateUserUsecase(Database())
@@ -22,7 +24,9 @@ class TestCreateUserUsecase(unittest.TestCase):
 
     def test_it_create_a_new_user(self):
         mock_new_user_data = {"name": 'any_name', 'email': 'any_email','password': 'any_password'}
-        new_user = self.sut.execute(mock_new_user_data[0], )
+        new_user = self.sut.execute(mock_new_user_data)
+
+        self.assertEqual(new_user, mock_new_user_data)
 
     def test_it_have_an_database_parameter_in_init_def(self):
         with self.assertRaises(TypeError) as error:
