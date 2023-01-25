@@ -4,7 +4,9 @@ class Database():
     __database = []
 
     def create(self, data: dict):
-        pass
+        self.database.append(data)
+
+        return data
     @property
     def database(self):
         return self.__database
