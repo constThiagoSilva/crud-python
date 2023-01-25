@@ -1,5 +1,9 @@
 import unittest
 
+class Database():
+    def create(self):
+        pass
+
 class CreateUserUsecase():
     def __init__(self, database):
         if database == '' or database == False:
@@ -11,7 +15,7 @@ class CreateUserUsecase():
 
 class TestCreateUserUsecase(unittest.TestCase):
     def setUp(self):
-        self.sut = CreateUserUsecase('any_database')
+        self.sut = CreateUserUsecase(Database())
 
     def test_it_have_an_database_parameter_in_init_def(self):
         with self.assertRaises(TypeError) as error:
