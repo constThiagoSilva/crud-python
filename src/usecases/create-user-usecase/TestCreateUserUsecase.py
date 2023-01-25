@@ -10,6 +10,9 @@ class CreateUserUsecase():
             raise TypeError('Parameters are not provided correctyly! Fix it!')
 
 class TestCreateUserUsecase(unittest.TestCase):
+    def setUp(self):
+        self.sut = CreateUserUsecase('any_database')
+
     def test_it_have_an_database_parameter_in_init_def(self):
         with self.assertRaises(TypeError) as error:
             CreateUserUsecase(database='')
@@ -20,7 +23,7 @@ class TestCreateUserUsecase(unittest.TestCase):
 
     def test_it_have_raises_an_error_if_parameters_are_not_provided_correctly(self):
         with self.assertRaises(TypeError) as error:
-            CreateUserUsecase('any_database').execute(name="", email="", password="")
+            self.sut.execute(name="", email="", password="")
           
         self.assertEqual('Parameters are not provided correctyly! Fix it!', str(error.exception))
     
