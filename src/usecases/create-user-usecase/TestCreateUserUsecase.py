@@ -5,9 +5,11 @@ class Database():
         pass
 
 class CreateUserUsecase():
-    def __init__(self, database):
+    def __init__(self, database: Database):
         if database == '' or database == False:
             raise TypeError('Database not provided! Fix it!')
+
+        self.database = database
             
     def execute(self, name, email, password):
         if name == '' or email == '' or password == '':
