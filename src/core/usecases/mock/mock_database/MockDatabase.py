@@ -6,7 +6,10 @@ class MockDatabase(Database):
     def create(self, data: dict):
         self.database.append(data)
 
-        return data     
+        return data  
+
+    def read_all(self):
+        return self.database
 
     def clear_database(self):
         self.database = []
