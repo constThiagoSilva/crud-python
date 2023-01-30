@@ -14,10 +14,11 @@ class DeleteByIdUserUsecase:
             raise ValueError('Parameter Id not Provided Correctly')
 
 class TestDeleteByIdUserUsecase(unittest.TestCase):
+    sut = DeleteByIdUserUsecase(MockDatabase)
+
     def test_if_parameter_id_has_provided_correctly_to_execute_method(self):
         with self.assertRaises(ValueError) as error:
-            sut = DeleteByIdUserUsecase(MockDatabase)
-            sut.execute(id=0)
+            self.sut.execute(id=0)
         
         self.assertEqual('Parameter Id not Provided Correctly', str(error.exception))
 
