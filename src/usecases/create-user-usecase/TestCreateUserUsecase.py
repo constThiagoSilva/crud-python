@@ -6,10 +6,15 @@ class Database():
     def create(self, data: dict):
         self.database.append(data)
 
-        return data
+        return data        
+
     @property
     def database(self):
         return self.__database
+
+    @database.setter
+    def database(self, value):
+        self.__database = value
         
 
 class CreateUserUsecase():
@@ -28,6 +33,10 @@ class CreateUserUsecase():
 class TestCreateUserUsecase(unittest.TestCase):
     def setUp(self):
         self.sut = CreateUserUsecase(Database())
+
+    @classmethod
+    def setUpClass(cls):
+        return super().setUpClass()
 
 
     def test_it_create_a_new_user_with_same_parameters(self):
