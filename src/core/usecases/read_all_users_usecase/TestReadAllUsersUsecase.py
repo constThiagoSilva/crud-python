@@ -1,16 +1,6 @@
 import unittest
-from src.core.interfaces.Database import Database
 from src.core.usecases.mock.mock_database.MockDatabase import MockDatabase
-
-class ReadAllUserUsecase():
-    def __init__(self, database: Database):
-        if database == '' or database == False or database == None:
-            raise TypeError('Database Interface Not Provided')
-        
-        self.database = database
-    
-    def execute(self):
-        return self.database.read_all()
+from src.core.usecases.read_all_users_usecase.ReadAllUsersUsecase import ReadAllUserUsecase
 
 class TestReadAllUsersUsecase(unittest.TestCase):
     sut = ReadAllUserUsecase(MockDatabase())
