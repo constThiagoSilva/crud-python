@@ -1,38 +1,11 @@
 import unittest
+from src.core.usecases.mock.mock_database.MockDatabase import MockDatabase
+from src.core.usecases.create_user_usecase.CreateUserUsercase import CreateUserUsecase
 
-class Database():
-    __database = []
-
-    def create(self, data: dict):
-        self.database.append(data)
-
-        return data        
-
-    @property
-    def database(self):
-        return self.__database
-
-    @database.setter
-    def database(self, value):
-        self.__database = value
-        
-
-class CreateUserUsecase():
-    def __init__(self, database: Database):
-        if database == '' or database == False:
-            raise TypeError('Database not provided! Fix it!')
-
-        self.database = database
-            
-    def execute(self, data: dict):
-        if data['name'] == '' or data['email'] == '' or data['password'] == '':
-            raise TypeError('Parameters are not provided correctyly! Fix it!')
-
-        return self.database.create(data)
 
 class TestCreateUserUsecase(unittest.TestCase):
     def setUp(self):
-        self.sut = CreateUserUsecase(Database())
+        self.sut = CreateUserUsecase(MockDatabase())
 
     @classmethod
     def setUpClass(cls):
