@@ -7,11 +7,6 @@ class TestCreateUserUsecase(unittest.TestCase):
     def setUp(self):
         self.sut = CreateUserUsecase(MockDatabase())
 
-    @classmethod
-    def setUpClass(cls):
-        return super().setUpClass()
-
-
     def test_it_create_a_new_user_with_same_parameters(self):
         mock_new_user_data = {"name": 'any_name', 'email': 'any_email','password': 'any_password'}
         new_user = self.sut.execute(mock_new_user_data)
