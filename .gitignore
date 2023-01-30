@@ -1,3 +1,6 @@
 **/database
 **/venv
+*.py[cod]
 study.md
+*.pyc
+src/**__pycache__/
