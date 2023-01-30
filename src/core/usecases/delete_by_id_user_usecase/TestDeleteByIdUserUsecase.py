@@ -13,8 +13,22 @@ class DeleteByIdUserUsecase:
         if not isinstance(id, int) or id <= 0:
             raise ValueError('Parameter Id not Provided Correctly')
 
+        self.database.delete(id)
+
 class TestDeleteByIdUserUsecase(unittest.TestCase):
-    sut = DeleteByIdUserUsecase(MockDatabase)
+    sut = DeleteByIdUserUsecase(MockDatabase())
+
+    def test_it_delete_an_user_by_id(self):
+        expected = [{"id": 2, "any2": "data2"}]
+        mock_database = MockDatabase()
+
+        mock_database.create({"id": 1, "any1": "data1"})
+        mock_database.create({"id": 2, "any2": "data2"})
+
+        self.sut.execute(1)
+
+        self.assertEqual(mock_database.database, expected)
+
 
     def test_if_parameter_id_has_provided_correctly_to_execute_method(self):
         with self.assertRaises(ValueError) as error:
