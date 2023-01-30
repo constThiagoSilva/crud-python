@@ -23,6 +23,13 @@ class TestMockDatabase(unittest.TestCase):
 
         self.assertEqual(self.sut.read_all(), expected)
 
+    def test_it_update_an_user(self):
+        expected = {"id": 1, "any": "updated_data"}
+
+        self.sut.create({"id": 1, "any": "data"})
+
+        self.assertEqual(self.sut.update(expected["id"], {"any": "updated_data"}), expected)
+
     def test_it_have_a_clear_database_method(self):
         print(self.sut.database)
 

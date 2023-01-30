@@ -11,6 +11,12 @@ class MockDatabase(Database):
     def read_all(self):
         return self.database
 
+    def update(self, id: int, data: dict):
+        for user in self.database:
+            if user['id'] == id:
+                user = {"id": user["id"], **data} 
+                return user
+
     def clear_database(self):
         self.database = []
 
