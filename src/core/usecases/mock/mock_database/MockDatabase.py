@@ -16,6 +16,11 @@ class MockDatabase(Database):
             if user['id'] == id:
                 user = {"id": user["id"], **data} 
                 return user
+    def delete(self, id):
+        for index, user in enumerate(self.database):
+            if user['id'] == id:
+                del self.database[index]
+                
 
     def clear_database(self):
         self.database = []

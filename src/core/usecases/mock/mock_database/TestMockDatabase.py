@@ -30,6 +30,14 @@ class TestMockDatabase(unittest.TestCase):
 
         self.assertEqual(self.sut.update(expected["id"], {"any": "updated_data"}), expected)
 
+    def test_it_delete_an_user(self):
+        self.sut.create({"id": 1, "any": "data"})
+        self.sut.create({"id": 2, "any": "data"})
+
+        self.sut.delete(1)
+
+        self.assertEqual(self.sut.database, [{"id": 2, "any": "data"}])
+
     def test_it_have_a_clear_database_method(self):
         print(self.sut.database)
 
