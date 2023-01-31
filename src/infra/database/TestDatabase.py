@@ -3,7 +3,7 @@ from src.infra.database.Database import Database
 from src.infra.database.connection import connection
 
 class TestDatabase(unittest.TestCase):
-    sut = Database(connection, 'db_users_test')
+    sut = Database(connection, 'db_users_test', 'tests')
     cursor = connection.cursor()
 
     def test_it_create_a_database_if_not_exists(self):
