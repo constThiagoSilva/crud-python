@@ -11,5 +11,4 @@ except mysql.connector.Error as error:
         print("Database does not exist")
     else:
         print(error)
-else:
-    connection.close()
+
