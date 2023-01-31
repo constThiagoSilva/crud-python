@@ -7,13 +7,15 @@ class UpdateUserUsecase:
         if database == '' or database == False or database == None:
             raise ValueError('Database Interface Not Provided')
 
+        self.database = database
+
     def execute(self, id: int, data: dict):
         if not isinstance(id, int) or id <= 0:
             raise ValueError('Parameter Id not Provided Correctly')
         if not isinstance(data, dict) or data == {}:
             raise ValueError('Parameter Data not Provided Correctly')
 
-        return {"id": 1, "any": "data_updated"}
+        return self.database.update(id, data)
 
 class TestUpdateUserUsecase(unittest.TestCase):
     sut = UpdateUserUsecase(MockDatabase())
