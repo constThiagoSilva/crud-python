@@ -4,8 +4,6 @@ from src.core.interfaces.Database import Database as DatabaseInterface
 
 class Database(DatabaseInterface):
     def __init__(self, connection: PooledMySQLConnection | MySQLConnection, database_name) -> None:
-        if not isinstance(connection, PooledMySQLConnection) or not isinstance(connection, MySQLConnection):
-            raise TypeError('Connection has not provided')
         if not isinstance(database_name, str) or database_name == '':
             raise TypeError('Connection has not provided')
 
