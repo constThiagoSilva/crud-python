@@ -13,8 +13,20 @@ class UpdateUserUsecase:
         if not isinstance(data, dict) or data == {}:
             raise ValueError('Parameter Data not Provided Correctly')
 
+        return {"id": 1, "any": "data_updated"}
+
 class TestUpdateUserUsecase(unittest.TestCase):
     sut = UpdateUserUsecase(MockDatabase())
+
+    def test_it_update_an_user(self):
+        expected = {"id": 1, "any": "data_updated"}
+        mock_database = MockDatabase()
+
+        mock_database.create({"id": 1, "any1": "data"})
+
+        updated_user = self.sut.execute(1, {"any": "data_updated"})
+
+        self.assertEqual(updated_user, expected)
 
     def test_if_parameter_id_and_data_has_provided_correctly_to_execute_method(self):
         with self.assertRaises(ValueError) as error:
