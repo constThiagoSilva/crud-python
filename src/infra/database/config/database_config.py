@@ -1,6 +1,6 @@
 config = {
-    "user": 'mysql',
+    "user": 'root',
     "password": 'root',
-    'host': 'mysql',
+    'host': 'localhost',
     'database': 'db_users'
 }
