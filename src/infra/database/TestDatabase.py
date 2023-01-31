@@ -22,11 +22,16 @@ class TestDatabase(unittest.TestCase):
         self.cursor.close()
         
 
-    def test_if_hass_passed_connection_database_and_name_of_database_to_init_method(self):
+    def test_if_has_passed_name_of_database_to_created_and_table_name_to_init_method(self):
         with self.assertRaises(TypeError) as error:
-            Database(connection, database_name='')
+            Database(connection, database_name='', table_name='any')
           
-        self.assertEqual('Connection has not provided', str(error.exception))
+        self.assertEqual('Database Name has not provided', str(error.exception))
+
+        with self.assertRaises(TypeError) as error:
+            Database(connection, database_name='any', table_name='')
+          
+        self.assertEqual('Tablename has not provided', str(error.exception))
 
 
 if __name__ == '__main__':
