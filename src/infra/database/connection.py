@@ -4,8 +4,6 @@ from .config.database_config import config
 
 try:
     connection = mysql.connector.connect(**config)
-
-    print('connected!')
 except mysql.connector.Error as error:
     if error.errno == errorcode.ER_ACCESS_DENIED_ERROR:
         print("Something is wrong with your user name or password")
