@@ -14,15 +14,16 @@ class UpdateUserUsecase:
             raise ValueError('Parameter Data not Provided Correctly')
 
 class TestUpdateUserUsecase(unittest.TestCase):
+    sut = UpdateUserUsecase(MockDatabase())
+
     def test_if_parameter_id_and_data_has_provided_correctly_to_execute_method(self):
-        sut = UpdateUserUsecase(MockDatabase())
         with self.assertRaises(ValueError) as error:
-            sut.execute(id=0, data={"any": "data"})
+            self.sut.execute(id=0, data={"any": "data"})
         
         self.assertEqual('Parameter Id not Provided Correctly', str(error.exception))
 
         with self.assertRaises(ValueError) as error:
-            sut.execute(id=1, data={})
+            self.sut.execute(id=1, data={})
         
         self.assertEqual('Parameter Data not Provided Correctly', str(error.exception))
 
