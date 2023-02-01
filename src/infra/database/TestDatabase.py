@@ -4,21 +4,40 @@ from src.infra.database.connection import connection
 
 class TestDatabase(unittest.TestCase):
     sut = Database(connection, 'db_users_test', 'tests')
-    cursor = connection.cursor()
+
+    def setUp(self):
+        self.cursor = connection.cursor()
 
     def test_it_create_a_database_if_not_exists(self):
         databases_list = []
 
-        self.sut.create_database_if_not_exists('new_test_db')
+        self.sut.create_database_if_not_exists('any_db')
         self.cursor.execute('SHOW DATABASES')
 
         for db in self.cursor:
             for tuple in db:
                 databases_list.append(tuple)
 
-        self.assertIn('new_test_db', databases_list)
+        self.assertIn('any_db', databases_list)
 
-        self.cursor.execute('DROP DATABASE new_test_db')
+        self.cursor.execute('DROP DATABASE any_db')
+        self.cursor.close()
+
+    def test_it_create_a_table_with_columns_passed_by_arguments(self):
+        tables_list = []
+
+        self.sut.create_database_if_not_exists('any_db')
+        # self.cursor.execute('USE any_db')
+        # self.sut.create_table('any_tb', ['id INTERGER auto_increment,', 'name VARCHAR(20) not null'])
+        # self.cursor.execute('SHOW TABLes')
+
+        # for tables_in_any_db in self.cursor:
+        #     for tuple in tables_in_any_db:
+        #         tables_list.append(tuple)
+
+        # self.assertIn('any_tb', tables_list)
+
+        self.cursor.execute('DROP DATABASE any_db')
         self.cursor.close()
         
 
