@@ -37,7 +37,7 @@ class TestDatabase(unittest.TestCase):
 
         self.assertIn('any_tb', tables_list)
 
-        #self.cursor.execute('DROP DATABASE any_db')
+        self.cursor.execute('DROP DATABASE any_db')
         self.cursor.close()
         
 
