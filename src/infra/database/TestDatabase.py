@@ -27,17 +27,17 @@ class TestDatabase(unittest.TestCase):
         tables_list = []
 
         self.sut.create_database_if_not_exists('any_db')
-        # self.cursor.execute('USE any_db')
-        # self.sut.create_table('any_tb', ['id INTERGER auto_increment,', 'name VARCHAR(20) not null'])
-        # self.cursor.execute('SHOW TABLes')
+        self.cursor.execute('USE any_db')
+        self.sut.create_table('any_tb', 'name VARCHAR(20) not null', 'age INTEGER')
+        self.cursor.execute('SHOW TABLes')
 
-        # for tables_in_any_db in self.cursor:
-        #     for tuple in tables_in_any_db:
-        #         tables_list.append(tuple)
+        for tables_in_any_db in self.cursor:
+            for tuple in tables_in_any_db:
+                tables_list.append(tuple)
 
-        # self.assertIn('any_tb', tables_list)
+        self.assertIn('any_tb', tables_list)
 
-        self.cursor.execute('DROP DATABASE any_db')
+        #self.cursor.execute('DROP DATABASE any_db')
         self.cursor.close()
         
 
