@@ -8,6 +8,11 @@ class TestDatabase(unittest.TestCase):
     def setUp(self):
         self.cursor = connection.cursor()
 
+    def tearDown(self) -> None:
+        self.cursor.execute('DROP DATABASE any_db')
+        self.cursor.close()
+        
+
     def test_it_create_a_database_if_not_exists(self):
         databases_list = []
 
@@ -20,8 +25,6 @@ class TestDatabase(unittest.TestCase):
 
         self.assertIn('any_db', databases_list)
 
-        self.cursor.execute('DROP DATABASE any_db')
-        self.cursor.close()
 
     def test_it_create_a_table_with_columns_passed_by_arguments(self):
         tables_list = []
@@ -29,7 +32,7 @@ class TestDatabase(unittest.TestCase):
         self.sut.create_database_if_not_exists('any_db')
         self.cursor.execute('USE any_db')
         self.sut.create_table('any_tb', 'name VARCHAR(20) not null', 'age INTEGER')
-        self.cursor.execute('SHOW TABLes')
+        self.cursor.execute('SHOW TABLES')
 
         for tables_in_any_db in self.cursor:
             for tuple in tables_in_any_db:
@@ -37,8 +40,6 @@ class TestDatabase(unittest.TestCase):
 
         self.assertIn('any_tb', tables_list)
 
-        self.cursor.execute('DROP DATABASE any_db')
-        self.cursor.close()
         
 
     def test_if_has_passed_name_of_database_to_created_and_table_name_to_init_method(self):
