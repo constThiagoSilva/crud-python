@@ -1,5 +1,5 @@
 class Database():
-    def create(self, data: dict):
+    def create(self, data: tuple):
         pass
     def read_all(self):
         pass

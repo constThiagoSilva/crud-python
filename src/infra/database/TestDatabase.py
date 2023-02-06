@@ -3,14 +3,13 @@ from src.infra.database.Database import Database
 from src.infra.database.connection import connection
 
 class TestDatabase(unittest.TestCase):
-    sut = Database(connection, 'db_users_test', 'tests')
+    sut = Database(connection, 'db_users_test', 'tests', 'name VARCHAR(64)', 'email VARCHAR(64)', 'password VARCHAR(64)')
 
     def setUp(self):
         self.cursor = connection.cursor()
 
     def tearDown(self) -> None:
-        self.cursor.execute('DROP DATABASE any_db')
-        self.cursor.close()
+        self.cursor.execute('DROP DATABASE db_users_test')
         
 
     def test_it_create_a_database_if_not_exists(self):
@@ -24,6 +23,9 @@ class TestDatabase(unittest.TestCase):
                 databases_list.append(tuple)
 
         self.assertIn('any_db', databases_list)
+
+        self.cursor.execute('DROP DATABASE any_db')
+        self.cursor.close()
 
 
     def test_it_create_a_table_with_columns_passed_by_arguments(self):
@@ -39,6 +41,20 @@ class TestDatabase(unittest.TestCase):
                 tables_list.append(tuple)
 
         self.assertIn('any_tb', tables_list)
+
+        self.cursor.execute('DROP DATABASE any_db')
+        self.cursor.close()
+
+    def test_it_create_an_user(self):
+        user_to_be_created = ("any_name", "any@gmail.com", "any_pass")
+
+        user = self.sut.create(user_to_be_created)
+        self.cursor.execute('SELECT name, email, password FROM any_db WHERE id = 1')
+
+        for user in self.cursor:
+            self.assertEqual(user_to_be_created, user)
+
+        
 
 
 class TestDatabaseConstructor(unittest.TestCase):
