@@ -3,13 +3,14 @@ from src.infra.database.Database import Database
 from src.infra.database.connection import connection
 
 class TestDatabase(unittest.TestCase):
-    sut = Database(connection, 'db_users_test', 'tests', 'name VARCHAR(64)', 'email VARCHAR(64)', 'password VARCHAR(64)')
+    sut = Database(connection, 'db_users_test', 'tb_users_test', 'name VARCHAR(64)', 'email VARCHAR(64)', 'password VARCHAR(64)')
+    cursor = connection.cursor()
 
     def setUp(self):
         self.cursor = connection.cursor()
 
-    def tearDown(self) -> None:
-        self.cursor.execute('DROP DATABASE db_users_test')
+    def tearDown(self):
+        pass
         
 
     def test_it_create_a_database_if_not_exists(self):
@@ -49,11 +50,15 @@ class TestDatabase(unittest.TestCase):
         user_to_be_created = ("any_name", "any@gmail.com", "any_pass")
 
         user = self.sut.create(user_to_be_created)
-        self.cursor.execute('SELECT name, email, password FROM any_db WHERE id = 1')
+        self.cursor.execute('SELECT * FROM db_users_test.tb_users_test')
 
-        for user in self.cursor:
-            self.assertEqual(user_to_be_created, user)
+        for user_in_sql in self.cursor:
+            print('aaaaaaa')
+            print(user)
+            print(user_in_sql)
+            self.assertEqual(user, user_in_sql)
 
+        self.cursor.execute('DROP DATABASE db_users_test')
         
 
 
