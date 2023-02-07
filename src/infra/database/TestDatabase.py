@@ -76,12 +76,14 @@ class TestDatabase(unittest.TestCase):
         self.cursor.execute("SELECT id FROM db_users_test.tb_users_test where name = 'any_name'")
 
         for user_id_to_be_deleted in self.cursor:
-            self.sut.delete(user_id_to_be_deleted)
+            self.sut.delete(user_id_to_be_deleted[0])
 
+        user_deleted = None
         self.cursor.execute("SELECT * FROM db_users_test.tb_users_test")
         for possibily_user_deleted in self.cursor:
-            self.assertIsNone(possibily_user_deleted)
-        
+            user_deleted = possibily_user_deleted
+            
+        self.assertIsNone(user_deleted)
 
 
 
