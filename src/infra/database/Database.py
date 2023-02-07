@@ -12,13 +12,11 @@ class Database(DatabaseInterface):
 
         self.connection = connection
         self.__cursor = connection.cursor()
-
-        self.table_name = ''
+        self.database_name = database_name
+        self.table_name = table_name
 
         self.setup_database(database_name, table_name, *columns)
 
-        self.database_name = database_name
-        self.table_name = table_name
 
     def setup_database(self, database_name, table_name, *columns):
         self.create_database_if_not_exists(database_name)
@@ -34,6 +32,11 @@ class Database(DatabaseInterface):
 
         for user in self.__cursor:
             return user
+
+    def read_all(self):
+        self.__cursor.execute(f'SELECT * FROM {self.database_name}.{self.table_name}')
+
+        return [users for users in self.__cursor]
 
     def create_database_if_not_exists(self, database_name):
         self.__cursor.execute(f'CREATE DATABASE IF NOT EXISTS {database_name}')

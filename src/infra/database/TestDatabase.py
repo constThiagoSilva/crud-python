@@ -6,8 +6,12 @@ class TestDatabase(unittest.TestCase):
     sut = Database(connection, 'db_users_test', 'tb_users_test', 'name VARCHAR(64)', 'email VARCHAR(64)', 'password VARCHAR(64)')
     cursor = connection.cursor()
 
+    def tearDown(self) -> None:
+        self.cursor.execute('DELETE FROM db_users_test.tb_users_test')
+
     @classmethod
     def tearDownClass(cls) -> None:
+        cls.cursor.execute('DROP DATABASE db_users_test')
         cls.cursor.close()
 
     def test_it_create_a_database_if_not_exists(self):
@@ -44,14 +48,25 @@ class TestDatabase(unittest.TestCase):
     def test_it_create_an_user(self):
         user_to_be_created = ("any_name", "any@gmail.com", "any_pass")
 
+
         user = self.sut.create(user_to_be_created)
         self.cursor.execute('SELECT * FROM db_users_test.tb_users_test')
 
         for user_in_sql in self.cursor:
             self.assertEqual(user, user_in_sql)
 
-        self.cursor.execute('DROP DATABASE db_users_test')
-        
+
+    # def test_it_read_all_users(self):
+    #     self.sut.create(("any_name1", "any1@gmail.com", 'any_password1'))
+    #     self.sut.create(("any_name2", "any2@gmail.com", 'any_password2'))
+    #     self.sut.create(("any_name3", "any3@gmail.com", 'any_password3'))
+
+    #     users = self.sut.read_all()
+    #     self.cursor.execute('SELECT * FROM db_users_test.tb_users_test')
+
+    #     for users_in_sql in self.cursor:
+    #         self.assertEqual(users, users_in_sql)
+
 
 
 class TestDatabaseConstructor(unittest.TestCase):
