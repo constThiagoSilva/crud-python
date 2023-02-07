@@ -54,9 +54,13 @@ class Database(DatabaseInterface):
     def create_database_if_not_exists(self, database_name):
         self.__cursor.execute(f'CREATE DATABASE IF NOT EXISTS {database_name}')
 
+    def close_cursor(self):
+        self.__cursor.close()
+        
     def create_table(self, table_name, *columns):
         columns = [column for column in [*columns]]
         self.__cursor.execute(f'CREATE TABLE IF NOT EXISTS {table_name} (id VARCHAR(40) primary key);')
 
         for column in columns:
             self.__cursor.execute(f'ALTER TABLE {table_name} ADD {column};')
+

@@ -13,6 +13,7 @@ class TestDatabase(unittest.TestCase):
     def tearDownClass(cls) -> None:
         cls.cursor.execute('DROP DATABASE db_users_test')
         cls.cursor.close()
+        cls.sut.close_cursor()
 
     def test_it_create_a_database_if_not_exists(self):
         databases_list = []
