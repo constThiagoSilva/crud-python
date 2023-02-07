@@ -33,8 +33,6 @@ class Database(DatabaseInterface):
         self.__cursor.execute(f"SELECT * FROM db_users_test.tb_users_test WHERE id = '{id}'")
 
         for user in self.__cursor:
-            print('bbbbbb')
-            print(user)
             return user
 
     def create_database_if_not_exists(self, database_name):

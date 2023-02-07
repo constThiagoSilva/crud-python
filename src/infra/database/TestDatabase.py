@@ -9,10 +9,6 @@ class TestDatabase(unittest.TestCase):
     def setUp(self):
         self.cursor = connection.cursor()
 
-    def tearDown(self):
-        pass
-        
-
     def test_it_create_a_database_if_not_exists(self):
         databases_list = []
 
@@ -26,7 +22,6 @@ class TestDatabase(unittest.TestCase):
         self.assertIn('any_db', databases_list)
 
         self.cursor.execute('DROP DATABASE any_db')
-        self.cursor.close()
 
 
     def test_it_create_a_table_with_columns_passed_by_arguments(self):
@@ -44,7 +39,6 @@ class TestDatabase(unittest.TestCase):
         self.assertIn('any_tb', tables_list)
 
         self.cursor.execute('DROP DATABASE any_db')
-        self.cursor.close()
 
     def test_it_create_an_user(self):
         user_to_be_created = ("any_name", "any@gmail.com", "any_pass")
@@ -53,9 +47,6 @@ class TestDatabase(unittest.TestCase):
         self.cursor.execute('SELECT * FROM db_users_test.tb_users_test')
 
         for user_in_sql in self.cursor:
-            print('aaaaaaa')
-            print(user)
-            print(user_in_sql)
             self.assertEqual(user, user_in_sql)
 
         self.cursor.execute('DROP DATABASE db_users_test')
