@@ -38,6 +38,9 @@ class Database(DatabaseInterface):
 
         return [users for users in self.__cursor]
 
+    def update(self, id: int, data: tuple):
+        return super().update(id, data)
+
     def delete(self, id):
         self.__cursor.execute(f"DELETE FROM {self.database_name}.{self.table_name} where id = '{id}'")
 

@@ -3,7 +3,7 @@ class Database():
         pass
     def read_all(self):
         pass
-    def update(self, id: int, data: dict):
+    def update(self, id: int, data: tuple):
         pass
     def delete(self, id):
         pass
