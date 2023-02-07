@@ -39,7 +39,13 @@ class Database(DatabaseInterface):
         return [users for users in self.__cursor]
 
     def update(self, id: int, data: tuple):
-        return super().update(id, data)
+        self.__cursor.execute(f"UPDATE {self.database_name}.{self.table_name} SET name = '{data[0]}', email = '{data[1]}', password = '{data[2]}';")
+        self.connection.commit()
+
+        self.__cursor.execute(f"SELECT * FROM db_users_test.tb_users_test WHERE id = '{id}'")
+
+        for uptaded_user in self.__cursor:
+            return uptaded_user
 
     def delete(self, id):
         self.__cursor.execute(f"DELETE FROM {self.database_name}.{self.table_name} where id = '{id}'")

@@ -70,6 +70,21 @@ class TestDatabase(unittest.TestCase):
             users_in_sql_list.append(users_in_sql)
 
         self.assertEqual(users, users_in_sql_list)
+
+
+    def test_it_update_an_user(self):
+        user_update_data = ('other_name', 'other@gmail.com', 'any_password')
+        user_updated = ()
+        self.sut.create(("any_name", "any@gmail.com", 'any_password'))
+        self.cursor.execute("SELECT id FROM db_users_test.tb_users_test where name = 'any_name'")
+
+        for user_id_to_be_updated in self.cursor:
+            user_updated = self.sut.update(user_id_to_be_updated[0], user_update_data)
+
+        self.cursor.execute("SELECT * FROM db_users_test.tb_users_test")
+        for possibility_user_updated in self.cursor:
+            self.assertEqual(user_updated, possibility_user_updated)
+        
     
     def test_it_delete_an_user_by_id(self):
         self.sut.create(("any_name", "any@gmail.com", 'any_password'))
