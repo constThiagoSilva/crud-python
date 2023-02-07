@@ -6,8 +6,9 @@ class TestDatabase(unittest.TestCase):
     sut = Database(connection, 'db_users_test', 'tb_users_test', 'name VARCHAR(64)', 'email VARCHAR(64)', 'password VARCHAR(64)')
     cursor = connection.cursor()
 
-    def setUp(self):
-        self.cursor = connection.cursor()
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.cursor.close()
 
     def test_it_create_a_database_if_not_exists(self):
         databases_list = []
