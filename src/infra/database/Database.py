@@ -49,6 +49,7 @@ class Database(DatabaseInterface):
 
     def delete(self, id):
         self.__cursor.execute(f"DELETE FROM {self.database_name}.{self.table_name} where id = '{id}'")
+        self.connection.commit()
 
     def create_database_if_not_exists(self, database_name):
         self.__cursor.execute(f'CREATE DATABASE IF NOT EXISTS {database_name}')
