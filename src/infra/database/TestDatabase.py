@@ -56,16 +56,20 @@ class TestDatabase(unittest.TestCase):
             self.assertEqual(user, user_in_sql)
 
 
-    # def test_it_read_all_users(self):
-    #     self.sut.create(("any_name1", "any1@gmail.com", 'any_password1'))
-    #     self.sut.create(("any_name2", "any2@gmail.com", 'any_password2'))
-    #     self.sut.create(("any_name3", "any3@gmail.com", 'any_password3'))
+    def test_it_read_all_users(self):
+        users_in_sql_list = []
 
-    #     users = self.sut.read_all()
-    #     self.cursor.execute('SELECT * FROM db_users_test.tb_users_test')
+        self.sut.create(("any_name1", "any1@gmail.com", 'any_password1'))
+        self.sut.create(("any_name2", "any2@gmail.com", 'any_password2'))
+        self.sut.create(("any_name3", "any3@gmail.com", 'any_password3'))
 
-    #     for users_in_sql in self.cursor:
-    #         self.assertEqual(users, users_in_sql)
+        users = self.sut.read_all()
+        self.cursor.execute('SELECT * FROM db_users_test.tb_users_test')
+
+        for users_in_sql in self.cursor:
+            users_in_sql_list.append(users_in_sql)
+
+        self.assertEqual(users, users_in_sql_list)
 
 
 
