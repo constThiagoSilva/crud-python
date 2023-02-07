@@ -70,6 +70,18 @@ class TestDatabase(unittest.TestCase):
             users_in_sql_list.append(users_in_sql)
 
         self.assertEqual(users, users_in_sql_list)
+    
+    def test_it_delete_an_user_by_id(self):
+        self.sut.create(("any_name", "any@gmail.com", 'any_password'))
+        self.cursor.execute("SELECT id FROM db_users_test.tb_users_test where name = 'any_name'")
+
+        for user_id_to_be_deleted in self.cursor:
+            self.sut.delete(user_id_to_be_deleted)
+
+        self.cursor.execute("SELECT * FROM db_users_test.tb_users_test")
+        for possibily_user_deleted in self.cursor:
+            self.assertIsNone(possibily_user_deleted)
+        
 
 
 
