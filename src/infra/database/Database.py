@@ -56,7 +56,10 @@ class Database(DatabaseInterface):
 
     def close_cursor(self):
         self.__cursor.close()
-        
+
+    def drop_database(self):
+        self.__cursor.execute(f'DROP DATABASE {self.database_name}')
+
     def create_table(self, table_name, *columns):
         columns = [column for column in [*columns]]
         self.__cursor.execute(f'CREATE TABLE IF NOT EXISTS {table_name} (id VARCHAR(40) primary key);')
