@@ -28,7 +28,7 @@ class Database(DatabaseInterface):
         self.__cursor.execute(f"INSERT INTO {self.database_name}.{self.table_name} (id, name, email, password) VALUES ('{id}', '{data[0]}', '{data[1]}', '{data[2]}');")
         self.connection.commit()
 
-        self.__cursor.execute(f"SELECT * FROM db_users_test.tb_users_test WHERE id = '{id}'")
+        self.__cursor.execute(f"SELECT * FROM {self.database_name}.{self.table_name} WHERE id = '{id}'")
 
         for user in self.__cursor:
             return user
